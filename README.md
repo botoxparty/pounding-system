@@ -22,7 +22,7 @@ written using C in the Arduino IDE (1.8.x)
 
 ## Signal Path
 
-![signal path](http://web.adamhammad.com/github/signal-path.jpg)
+![signal path](http://web.adamhammad.com/github/signal-path-larger.jpg)
 
 ## Sample Hardware Layout
 
