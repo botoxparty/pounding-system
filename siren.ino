@@ -136,7 +136,7 @@ void setup() {
   // INIT DEVICE
   Serial.begin(9600);
   
-  pinMode(2, INPUT_PULLUP);  
+  pinMode(2, INPUT_PULLUP); 
   pinMode(24, INPUT_PULLUP);
   pinMode(25, INPUT_PULLUP);
   pinMode(26, INPUT_PULLUP);
@@ -146,7 +146,7 @@ void setup() {
   
   delay(300);
   
-  Serial.println("Dub Siren by Adam Hammad");
+  Serial.println("Pounding System [Hydro Delay 1000]");
 
   // INIT DISPLAY
   
@@ -238,16 +238,21 @@ void loop() {
   switch_trigger.update();    // Siren trigger 'HOLD'
 
   // Convert analog inputs to range from 0.0 TO 1.0
-  float knob_frequency = (float)analogRead(A22) / 1023.0;
-  float knob_delay = (float)analogRead(A7) / 1023.0;
-  float knob_amplitude = (float)analogRead(A20) / 1023.0;
-  float knob_modulation = (float)analogRead(A21) / 1023.0;
-  float knob_filter = (float)analogRead(A15) / 1023.0;
-  float knob_feedback = (float)analogRead(A14) / 1023.0;
-  float knob_inthru = (float)analogRead(A17) / 1023.0;
-  float knob_todelay = (float)analogRead(A16) / 1023.0;
-  float knob_involume = (float)analogRead(A12) / 1023.0;
-  float knob_outvolume = (float)analogRead(A13) / 1023.0;
+
+  float knob_delay = (float)analogRead(A7) / 1023.0; // KNOB_DELAY
+  float knob_amplitude = (float)analogRead(A20) / 1023.0; // KNOB_SIRENVOL
+  float knob_modulation = (float)analogRead(A16) / 1023.0; // KNOB_MOD
+  float knob_frequency = (float)analogRead(A17) / 1023.0; // KNOB_FREQ
+  float knob_filter = (float)analogRead(A15) / 1023.0; // KNOB_FILTER 
+  float knob_feedback = (float)analogRead(A14) / 1023.0; // KNOB_FEEDBACK
+  float knob_inthru = (float)analogRead(A17) / 1023.0; // KNOB_INPUTTHRU
+  float knob_todelay = (float)analogRead(A16) / 1023.0; // KNOB_INPUTTODELAY
+  float knob_involume = (float)analogRead(A12) / 1023.0; // KNOB_INPUT
+  float knob_outvolume = (float)analogRead(A13) / 1023.0; // KNOB_OUTPUT
+  float knob_speed = (float)analogRead(A19) / 1023.0; // KNOB_SPEED
+  float knob_effect = (float)analogRead(A18) / 1023.0; // KNOB_EFFECT
+  float knob_reverbTime = (float)analogRead(A20) / 1023.0; // KNOB_REVERBTIME
+  float knob_reverbVolume = (float)analogRead(A10) / 1023.00 // KNOB_REVERBVOLUME
 
   // MIC/LINE SWITCH
   if (switch3.read() == 1) {
@@ -274,7 +279,7 @@ void loop() {
   mixerDelay.gain(1, knob_feedback * 0.99);
 
   // Speed
-  //waveform1.frequency(knob_involume * 20);
+  waveform1.frequency(knob_speed * 20);
   
   // Input to Delay + Thru
   mixerDelay.gain(0, knob_todelay * 0.5);
@@ -286,13 +291,14 @@ void loop() {
   mixerMain.gain(1, 0);
   }
 
+
   // Reverb Time
-  reverb1.reverbTime(knob_involume * 10);
+  reverb1.reverbTime(knob_reverbTime * 10);
   
-  // Turn off Reverb if value is low
-  if (knob_involume < 0.01) {
+  // Turn off Reverb Volume
+  if (knob_reverbVolume < 0.01) {
     Serial.print("Knob Volume: ");
-    Serial.println(knob_involume);
+    Serial.println(knob_reverbVolume);
     ampReverb.gain(0);
   }
   else {
@@ -325,9 +331,9 @@ void loop() {
       isNoteOn = false;
     }
 
-    // Add latency for Space Siren
+    // Add latency for Space Siren Effect
     if (sound_selection == 4) {
-      delay(knob_filter * 200);
+      delay(knob_effect * 200);
     }
   }
 
