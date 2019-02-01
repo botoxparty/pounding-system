@@ -102,8 +102,8 @@ Bounce button_sound = Bounce(26, 15);
 Bounce button_trigger = Bounce(25, 15);
 Bounce low_battery = Bounce(2, 15);
 
-Bounce switch1 = Bounce(27, 15);
-Bounce switch2 = Bounce(30, 15);
+Bounce switch1 = Bounce(27, 15); // WAVEFORM1
+Bounce switch2 = Bounce(30, 15); // WAVEFORM2
 Bounce switch3 = Bounce(29, 15);
 Bounce switch_trigger = Bounce(24, 15);
 
