@@ -1,7 +1,8 @@
-# Siren
+# Pounding System - Hydro Delay 1000
 
-A digital dub siren and effects unit (Delay, Reverb, Chorus) using the Teensy audio library.
-Requires custom-built hardware for operation. Or you can assign your own Analog and Digital pins.
+A digital siren and effects unit (Delay, Reverb, Chorus) using the Teensy audio library.
+Requires custom-built hardware for operation. 
+Or you can reconfigure the interface and assign your own Analog and Digital pins.
 
 written using C in the Arduino IDE (1.8.x)
 
